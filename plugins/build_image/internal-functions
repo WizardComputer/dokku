@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -eo pipefail
+[[ $DOKKU_TRACE ]] && set -x
+
+build_image_help_content_func() {
+  declare desc="return build_image plugin help content"
+  cat <<help_content
+    build_image <app>, Build a new docker image from the current application folder
+help_content
+}
