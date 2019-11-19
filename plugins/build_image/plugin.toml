@@ -1,0 +1,4 @@
+[plugin]
+description = "dokku core build_image plugin"
+version = "0.0.1"
+[plugin.config]
