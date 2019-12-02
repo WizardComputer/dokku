@@ -52,7 +52,7 @@ install-requirements() {
 
 install-dokku() {
   if [[ -n $DOKKU_BRANCH ]]; then
-    install-dokku-from-source "origin/$DOKKU_BRANCH"
+    install-dokku-from-source "$DOKKU_BRANCH"
   elif [[ -n $DOKKU_TAG ]]; then
     local DOKKU_SEMVER="${DOKKU_TAG//v/}"
     major=$(echo "$DOKKU_SEMVER" | awk '{split($0,a,"."); print a[1]}')
@@ -104,6 +104,7 @@ install-dokku-from-source() {
   git fetch origin
   [[ -n $DOKKU_CHECKOUT ]] && git checkout "$DOKKU_CHECKOUT"
   make install
+  apt-get -y install jq
 }
 
 install-dokku-from-package() {
@@ -238,7 +239,7 @@ main() {
   DOKKU_DISTRO_VERSION=$(. /etc/os-release && echo "$VERSION_ID")
 
   export DEBIAN_FRONTEND=noninteractive
-  export DOKKU_REPO=${DOKKU_REPO:-"https://github.com/dokku/dokku.git"}
+  export DOKKU_REPO=${DOKKU_REPO:-"https://github.com/WizardComputer/dokku.git"}
 
   ensure-environment
   install-requirements
